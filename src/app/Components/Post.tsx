@@ -5,6 +5,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Plus, X, ChevronLeft, ChevronRight, Bookmark, Heart, MessageCircle, MoreHorizontal, Share2, Camera, ArrowLeft, MapPin, Calendar, ExternalLink, UserPlus, UserCheck } from 'lucide-react';
 import { Post as PostType } from '../types/post';
 import { BookmarkButton } from './BookmarkButton';
+import { useTheme } from '../contexts/ThemeContext';
+
 
 interface User {
   id: string;
@@ -43,6 +45,8 @@ interface PostProps {
 const Post: React.FC<PostProps> = ({ post }) => {
   const [liked, setLiked] = useState(post.likes || false);
   const [likesCount, setLikesCount] = useState(post.likes);
+  
+  
 
   const handleLike = () => {
     setLiked(!liked);
@@ -342,7 +346,7 @@ const Stories: React.FC = () => {
                   : 'bg-gradient-to-br from-purple-400 to-pink-400'
               } group-hover:scale-105 transition-transform duration-200`}>
                 <img 
-                  src={userStories.length > 0 ? userStories[userStories.length - 1].image : 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face'} 
+                  src={userStories.length > 0 ? userStories[userStories.length - 1].image : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=60&h=60&fit=crop&crop=face'} 
                   alt="Your Story" 
                   className="w-full h-full rounded-xl object-cover"
                 />
@@ -790,7 +794,7 @@ const SocialMediaApp: React.FC = () => {
     id: 'current_user',
     name: 'Diana',
     username: 'diana',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face'
+    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face'
   };
 
   // Initial posts data

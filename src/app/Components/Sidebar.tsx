@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
     id: 'current_user',
     name: 'Diana Ayi',
     username: 'Dayi',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face'
+    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face'
   };
 
   const sidebarItems = [
@@ -45,14 +45,15 @@ const Sidebar: React.FC = () => {
     { icon: Search, label: 'Explore', href: '/explore' },
     { icon: MessageCircle, label: 'Messages', badge: 0, href: '/messages' },
     { icon: Bookmark, label: 'Bookmarks', href: '/bookmarks' },
-    { icon: Bell, label: 'Notification', href: '/notifications' },
+    { icon: Bell, label: 'Notification', href: '/notification' },
+    
     { 
       icon: Palette, 
       label: 'Theme', 
       href: null,
       onClick: () => setIsThemeSelectorOpen(true)
     },
-    { icon: Settings, label: 'Settings', href: '/settings' }
+    { icon: Settings, label: 'Settings', href: '/setting' }
   ];
 
   const handlePost = () => {

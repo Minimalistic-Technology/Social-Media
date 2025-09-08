@@ -51,7 +51,7 @@ export const BookmarksList: React.FC = () => {
       {/* Bookmarked Posts */}
       <div className="grid gap-4">
         {bookmarkedPosts.map(post => (
-          <div key={post.id} className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+          <div key={post.id} className="bg-white rounded-lg p-4 border">
             {/* Post Header */}
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-3">

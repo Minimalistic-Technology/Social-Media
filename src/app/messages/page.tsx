@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState,useEffect, useRef} from 'react';
 import { Search, Send, ArrowLeft, Plus, Phone, Video, Info, Smile, Paperclip, Camera, MoreHorizontal } from 'lucide-react';
 
 interface User {
@@ -41,7 +41,9 @@ const MessagePanel: React.FC = () => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isVideoCallActive, setIsVideoCallActive] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+
   const [conversations, setConversations] = useState<Conversation[]>([
+      
     {
       id: '1',
       user: { 
@@ -191,6 +193,16 @@ const MessagePanel: React.FC = () => {
       timestamp: '5h'
     }
   ]);
+  
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+useEffect(() => {
+  messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+}, [selectedConversation, conversations]);
+
+
+
+
 
   const handleSendMessage = () => {
     if (!newMessage.trim() || !selectedConversation) return;
@@ -200,13 +212,13 @@ const MessagePanel: React.FC = () => {
 
     setConversations(prev => prev.map(conv => {
       if (conv.id === selectedConversation) {
-        const updatedMessages = [ {
+        const updatedMessages = [...conv.messages, {
           id: messageId,
           senderId: 'me',
           content: newMessage,
           timestamp,
           isRead: true
-        },...conv.messages];
+        }];
         
         return {
           ...conv,
@@ -323,8 +335,13 @@ const MessagePanel: React.FC = () => {
 
   return (
     <div className="h-screen bg-gray-50 dark:bg-gray-900 flex overflow-hidden">
+  
+
+
+
+      
       {/* Left Sidebar - Chat List */}
-      <div className="w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col h-full">
+      <div className="w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col h-full ">
         {/* Header */}
         <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
           <div className="flex items-center justify-between mb-4">
@@ -443,10 +460,10 @@ const MessagePanel: React.FC = () => {
             </div>
 
             {/* Chat Messages Container */}
-            <div className="flex-1 flex overflow-hidden">
+            <div className="flex flex-col flex-1 h-full">
               {/* Messages Area */}
               <div className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900">
-                <div className="max-w-ful flex flex-col-reverse space-y-4">
+                <div className="max-w-full flex flex-col space-y-4">
                   {selectedConv.messages.map((message) => (
                     <div 
                       key={message.id} 
@@ -468,7 +485,9 @@ const MessagePanel: React.FC = () => {
                       </div>
                     </div>
                   ))}
-                </div>
+                   <div ref={messagesEndRef} />
+                   </div>
+               
               </div>
 
               {/* Chat Details Sidebar - Only shows when showSidebar is true */}
