@@ -30,7 +30,14 @@ const Sidebar: React.FC = () => {
   const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false);
   
   const { theme, themes } = useTheme();
+  // const currentTheme = themes.find(t => t.id === theme);
   const currentTheme = themes.find(t => t.id === theme);
+
+// If theme is missing, fall back safely
+if (!currentTheme) {
+  return null; // or return a loading/error component
+}
+
 
   const currentUser: User = {
     id: 'current_user',

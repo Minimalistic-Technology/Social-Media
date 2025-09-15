@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../Components/Sidebar';
 import Topbar from '../Components/Topbar';
 import { useTheme } from '../contexts/ThemeContext'; 
-import Stories from '../Components/Stories';
+
 
 import Post from '../Components/Post';
 import { Home, Search, Bell, MessageCircle, Bookmark, TrendingUp, Palette, Settings } from 'lucide-react';
@@ -41,7 +41,7 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
         <Sidebar />
         
         <div className="flex-1 lg:ml-64">
-          <Topbar darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Topbar  />
           
           <div className="flex">
             <main className=" px-4 lg:px-8 py-6 max-w-5xl min-w-4xl mx-auto">

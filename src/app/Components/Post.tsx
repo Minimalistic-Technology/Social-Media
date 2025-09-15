@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Plus, X, ChevronLeft, ChevronRight, Bookmark, Heart, MessageCircle, MoreHorizontal, Share2, Camera, ArrowLeft, MapPin, Calendar, ExternalLink, UserPlus, UserCheck } from 'lucide-react';
 import { Post as PostType } from '../types/post';
 import { BookmarkButton } from './BookmarkButton';
-import { useTheme } from '../contexts/ThemeContext';
+
 
 
 interface User {
@@ -54,7 +54,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
   };
 
   return (
-    <article className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow">
+    <article className="bg-[var(--color-surface)] dark:bg-[var(--color-muted)] rounded-2xl shadow-sm border border-[var(--color-secondary)] dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow">
       {/* Post Header */}
       <div className="p-6 pb-4">
         <div className="flex items-center justify-between">
@@ -65,24 +65,24 @@ const Post: React.FC<PostProps> = ({ post }) => {
               className="w-10 h-10 rounded-full cursor-pointer"
             />
             <div>
-              <p className="font-medium text-gray-900 dark:text-white cursor-pointer hover:underline">
+              <p className="font-medium text-[var(--color-text)]  cursor-pointer hover:underline">
                 {post.user.name}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{post.timestamp}</p>
+              <p className="text-sm text-[var(--color-muted)] dark:text-gray-400">{post.timestamp}</p>
             </div>
           </div>
-          <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+          <button className="text-gray-400 hover:text-[var(--color-muted-hover)] dark:hover:text-[var(--color-muted-hover)] transition-colors">
             <MoreHorizontal className="w-5 h-5" />
           </button>
         </div>
         
-        <p className="mt-4 text-gray-900 dark:text-white">{post.content}</p>
+        <p className="mt-4 text-[var(--color-text)] ">{post.content}</p>
         
         {/* Hashtags */}
         {post.hashtags && (
           <div className="flex flex-wrap gap-2 mt-3">
             {post.hashtags.map((tag, index) => (
-              <span key={index} className="text-purple-500 hover:text-purple-600 cursor-pointer">
+              <span key={index} className="text-[var(--color-primary)] hover:text-purple-600 cursor-pointer">
                 #{tag}
               </span>
             ))}
@@ -103,22 +103,22 @@ const Post: React.FC<PostProps> = ({ post }) => {
 
       {/* Post Actions */}
       <div className="px-6 py-4">
-        <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between pt-3 border-t border-[var(--color-secondary)] dark:border-gray-700">
           <div className="flex items-center space-x-6">
             <button 
               onClick={handleLike}
               className={`flex items-center space-x-2 transition-colors ${
-                liked ? 'text-red-500' : 'text-gray-500 hover:text-red-500'
+                liked ? 'text-red-500' : 'text-[var(--color-muted)] hover:text-red-500'
               }`}
             >
               <Heart className={`w-5 h-5 ${liked ? 'fill-current' : ''}`} />
               <span className="text-sm font-medium">{likesCount.toLocaleString()}</span>
             </button>
-            <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors">
+            <button className="flex items-center space-x-2 text-[var(--color-muted)] hover:text-[var(--color-info)] transition-colors">
               <MessageCircle className="w-5 h-5" />
               <span className="text-sm font-medium">{post.comments}</span>
             </button>
-            <button className="flex items-center space-x-2 text-gray-500 hover:text-green-500 transition-colors">
+            <button className="flex items-center space-x-2 text-[var(--color-muted)] hover:text-green-500 transition-colors">
               <Share2 className="w-5 h-5" />
               <span className="text-sm font-medium">{post.shares}</span>
             </button>
@@ -351,7 +351,7 @@ const Stories: React.FC = () => {
                   className="w-full h-full rounded-xl object-cover"
                 />
               </div>
-              <div className="absolute -bottom-1 -right-1 bg-purple-500 text-white rounded-full w-6 h-6 flex items-center justify-center group-hover:bg-purple-600 transition-colors">
+              <div className="absolute -bottom-1 -right-1 bg-[var(--color-primary)] text-white rounded-full w-6 h-6 flex items-center justify-center group-hover:bg-[var(--color-primary)] transition-colors">
                 <Plus className="w-4 h-4" />
               </div>
               {/* Removed the number indicator for user stories */}
@@ -371,7 +371,7 @@ const Stories: React.FC = () => {
               <div className="relative">
                 <div className={`w-16 h-16 rounded-2xl p-1 ${
                   story.viewed
-                    ? 'bg-gray-300 dark:bg-gray-600'
+                    ? 'bg-gray-300 dark:bg-[var(--color-muted)]'
                     : 'bg-gradient-to-br from-pink-400 via-purple-400 to-blue-400'
                 } group-hover:scale-105 transition-transform duration-200`}>
                   <img 
@@ -398,9 +398,9 @@ const Stories: React.FC = () => {
             {/* Progress bars */}
             <div className="absolute top-4 left-4 right-4 flex space-x-1 z-10">
               {getCurrentStories().map((_, index) => (
-                <div key={index} className="flex-1 h-1 bg-gray-600 rounded-full overflow-hidden">
+                <div key={index} className="flex-1 h-1 bg-[var(--color-muted)] rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-white transition-all duration-100 ease-linear"
+                    className="h-full bg-[var(--color-surface)] transition-all duration-100 ease-linear"
                     style={{ 
                       width: index === getCurrentIndex() ? `${progress}%` : 
                              index < getCurrentIndex()! ? '100%' : '0%' 
@@ -427,7 +427,7 @@ const Stories: React.FC = () => {
               </div>
               <button 
                 onClick={closeStoryViewer}
-                className="text-white hover:text-gray-300 transition-colors"
+                className="text-white hover:text-[var(--color-muted-hover)] transition-colors"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -476,7 +476,7 @@ const Stories: React.FC = () => {
                   closeStoryViewer();
                   handleAddStory();
                 }}
-                className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-purple-500 hover:bg-purple-600 text-white rounded-full p-3 transition-colors"
+                className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-[var(--color-primary)] hover:bg-[var(--color-primary)] text-white rounded-full p-3 transition-colors"
               >
                 <Plus className="w-6 h-6" />
               </button>
@@ -558,7 +558,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
         return (
           <div className="space-y-6">
             {userData.posts.map((post: { id: number; content: string; timestamp: string; likes: number; comments: number }) => (
-              <div key={post.id} className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+              <div key={post.id} className="bg-[var(--color-surface)] dark:bg-[var(--color-muted)] rounded-lg p-6 border border-[var(--color-secondary)] dark:border-gray-700">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">
                     <img
@@ -567,29 +567,29 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
                       className="w-10 h-10 rounded-full object-cover"
                     />
                     <div>
-                      <h4 className="text-gray-900 dark:text-white font-medium">{userData.name}</h4>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm">{post.timestamp}</p>
+                      <h4 className="text-[var(--color-text)]  font-medium">{userData.name}</h4>
+                      <p className="text-[var(--color-muted)] dark:text-gray-400 text-sm">{post.timestamp}</p>
                     </div>
                   </div>
-                  <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                  <button className="text-gray-400 hover:text-[var(--color-muted-hover)] dark:hover:text-[var(--color-muted-hover)]">
                     <MoreHorizontal className="w-5 h-5" />
                   </button>
                 </div>
                 
                 <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">{post.content}</p>
                 
-                <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between pt-4 border-t border-[var(--color-secondary)] dark:border-gray-700">
                   <div className="flex items-center space-x-6">
-                    <button className="flex items-center space-x-2 text-gray-500 hover:text-red-500 transition-colors">
+                    <button className="flex items-center space-x-2 text-[var(--color-muted)] hover:text-red-500 transition-colors">
                       <Heart className="w-5 h-5" />
                       <span>{post.likes}</span>
                     </button>
-                    <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors">
+                    <button className="flex items-center space-x-2 text-[var(--color-muted)] hover:text-[var(--color-info)] transition-colors">
                       <MessageCircle className="w-5 h-5" />
                       <span>{post.comments}</span>
                     </button>
                   </div>
-                  <button className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                  <button className="text-[var(--color-muted)] hover:text-gray-700 dark:hover:text-[var(--color-muted-hover)]">
                     <Share2 className="w-5 h-5" />
                   </button>
                 </div>
@@ -602,7 +602,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
         return (
           <div className="space-y-4">
             {userData.followersList.map((follower: { id: number; name: string; username: string; avatar: string }) => (
-              <div key={follower.id} className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div key={follower.id} className="flex items-center justify-between p-4 bg-[var(--color-surface)] dark:bg-[var(--color-muted)] rounded-lg border border-[var(--color-secondary)] dark:border-gray-700">
                 <div className="flex items-center space-x-3">
                   <img
                     src={follower.avatar}
@@ -610,11 +610,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
                     className="w-12 h-12 rounded-full object-cover"
                   />
                   <div>
-                    <h4 className="text-gray-900 dark:text-white font-medium">{follower.name}</h4>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">{follower.username}</p>
+                    <h4 className=" text-[var(--color-text)] font-medium">{follower.name}</h4>
+                    <p className="text-[var(--color-muted)] dark:text-gray-400 text-sm">{follower.username}</p>
                   </div>
                 </div>
-                <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors">
+                <button className="bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white px-4 py-2 rounded-lg transition-colors">
                   Follow Back
                 </button>
               </div>
@@ -626,7 +626,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
         return (
           <div className="space-y-4">
             {userData.followingList.map((following: { id: number; name: string; username: string; avatar: string }) => (
-              <div key={following.id} className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div key={following.id} className="flex items-center justify-between p-4 bg-[var(--color-surface)] dark:bg-[var(--color-muted)] rounded-lg border border-[var(--color-secondary)] dark:border-gray-700">
                 <div className="flex items-center space-x-3">
                   <img
                     src={following.avatar}
@@ -634,11 +634,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
                     className="w-12 h-12 rounded-full object-cover"
                   />
                   <div>
-                    <h4 className="text-gray-900 dark:text-white font-medium">{following.name}</h4>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">{following.username}</p>
+                    <h4 className=" text-[var(--color-text)] font-medium">{following.name}</h4>
+                    <p className="text-[var(--color-muted)] dark:text-gray-400 text-sm">{following.username}</p>
                   </div>
                 </div>
-                <button className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors">
+                <button className="bg-[var(--color-muted)] hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors">
                   Following
                 </button>
               </div>
@@ -652,19 +652,19 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
+    <div className="min-h-screen bg-[var(--color-background)] dark:bg-gray-900  text-[var(--color-text)]">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4">
+      <div className="bg-[var(--color-surface)] dark:bg-[var(--color-muted)] border-b border-[var(--color-secondary)] dark:border-gray-700 p-4">
         <div className="flex items-center space-x-4">
           <button
             onClick={onBack}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+            className="p-2 hover:bg-[var(--color-secondary)] dark:hover:bg-gray-700 rounded-full transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
             <h1 className="text-xl font-bold">{userData.name}</h1>
-            <p className="text-gray-500 dark:text-gray-400 text-sm">{userData.postsCount} posts</p>
+            <p className="text-[var(--color-muted)] dark:text-gray-400 text-sm">{userData.postsCount} posts</p>
           </div>
         </div>
       </div>
@@ -688,8 +688,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
                 onClick={handleFollow}
                 className={`px-6 py-2 rounded-full font-medium transition-colors ${
                   isFollowing
-                    ? 'bg-gray-600 hover:bg-gray-700 text-white'
-                    : 'bg-purple-600 hover:bg-purple-700 text-white'
+                    ? 'bg-[var(--color-muted)] hover:bg-gray-700 text-white'
+                    : 'bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white'
                 }`}
               >
                 {isFollowing ? (
@@ -709,12 +709,12 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
 
           <div className="mb-4">
             <h2 className="text-2xl font-bold mb-1">{userData.name}</h2>
-            <p className="text-gray-500 dark:text-gray-400">@{userData.username}</p>
+            <p className="text-[var(--color-muted)] dark:text-gray-400">@{userData.username}</p>
           </div>
 
           <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">{userData.bio}</p>
 
-          <div className="flex flex-wrap items-center gap-4 text-gray-500 dark:text-gray-400 text-sm mb-4">
+          <div className="flex flex-wrap items-center gap-4 text-[var(--color-muted)] dark:text-gray-400 text-sm mb-4">
             {userData.location && (
               <div className="flex items-center space-x-1">
                 <MapPin className="w-4 h-4" />
@@ -724,7 +724,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
             {userData.website && (
               <div className="flex items-center space-x-1">
                 <ExternalLink className="w-4 h-4" />
-                <a href={`https://${userData.website}`} className="text-purple-500 hover:underline">
+                <a href={`https://${userData.website}`} className="text-[var(--color-primary)] hover:underline">
                   {userData.website}
                 </a>
               </div>
@@ -741,22 +741,22 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
               onClick={() => setActiveTab('following')}
               className="hover:underline"
             >
-              <span className="font-bold text-gray-900 dark:text-white">{userData.following.toLocaleString()}</span>
-              <span className="text-gray-500 dark:text-gray-400 ml-1">Following</span>
+              <span className="font-bold  text-[var(--color-text)]">{userData.following.toLocaleString()}</span>
+              <span className="text-[var(--color-muted)] dark:text-gray-400 ml-1">Following</span>
             </button>
             <button
               onClick={() => setActiveTab('followers')}
               className="hover:underline"
             >
-              <span className="font-bold text-gray-900 dark:text-white">{userData.followers.toLocaleString()}</span>
-              <span className="text-gray-500 dark:text-gray-400 ml-1">Followers</span>
+              <span className="font-bold  text-[var(--color-text)]">{userData.followers.toLocaleString()}</span>
+              <span className="text-[var(--color-muted)] dark:text-gray-400 ml-1">Followers</span>
             </button>
           </div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200 dark:border-gray-700 px-6">
+      <div className="border-b border-[var(--color-secondary)] dark:border-gray-700 px-6">
         <div className="flex space-x-8">
           {(['posts', 'followers', 'following'] as const).map((tab) => (
             <button
@@ -764,8 +764,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack, currentUser }) 
               onClick={() => setActiveTab(tab)}
               className={`py-4 px-2 font-medium transition-colors relative ${
                 activeTab === tab
-                  ? 'text-purple-500 border-b-2 border-purple-500'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                  ? 'text-[var(--color-primary)] border-b-2 border-purple-500'
+                  : 'text-[var(--color-muted)] dark:text-gray-400 hover:text-gray-700 dark:hover:text-[var(--color-muted-hover)]'
               }`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -894,12 +894,12 @@ const SocialMediaApp: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4 bg-gray-50 dark:bg-gray-900 min-h-screen relative">
+    <div className="max-w-4xl mx-auto p-4 bg-[var(--color-background)] dark:bg-gray-900 min-h-screen relative">
       {/* Stories Section */}
       <Stories />
 
       {/* Post Form */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 mb-6 shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="bg-[var(--color-surface)] dark:bg-[var(--color-muted)] rounded-2xl p-6 mb-6 shadow-sm border border-[var(--color-secondary)] dark:border-gray-700">
         <div className="flex items-center space-x-3">
           <img 
             src={currentUser.avatar} 
@@ -911,10 +911,10 @@ const SocialMediaApp: React.FC = () => {
             placeholder="What's on your mind, Diana?"
             value={postContent}
             onChange={(e) => setPostContent(e.target.value)}
-            className="flex-1 bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 dark:text-white placeholder-gray-500"
+            className="flex-1 bg-[var(--color-secondary)] dark:bg-gray-700 border border-[var(--color-secondary)] dark:border-gray-600 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500  text-[var(--color-text)] placeholder-gray-500"
             onKeyPress={(e) => e.key === 'Enter' && (postContent.trim() || selectedImage) && handlePost()}
           />
-          <label className="cursor-pointer text-gray-500 hover:text-purple-500 transition-colors p-2">
+          <label className="cursor-pointer text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-colors p-2">
             <Camera className="w-5 h-5" />
             <input 
               type="file" 
@@ -925,7 +925,7 @@ const SocialMediaApp: React.FC = () => {
           </label>
           <button 
             onClick={handlePost}
-            className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-6 py-2 rounded-xl font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-gradient-to-r  bg-[var(--color-gradient)] hover:from-purple-600 hover:to-purple-700 text-white px-6 py-2 rounded-xl font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={!postContent.trim() && !selectedImage}
           >
             Post
@@ -942,7 +942,7 @@ const SocialMediaApp: React.FC = () => {
             />
             <button 
               onClick={removeImage}
-              className="absolute top-2 right-2 bg-gray-800 bg-opacity-70 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-opacity-90 transition-opacity"
+              className="absolute top-2 right-2 bg-[var(--color-muted)] bg-opacity-70 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-opacity-90 transition-opacity"
             >
               ✕
             </button>
@@ -953,7 +953,7 @@ const SocialMediaApp: React.FC = () => {
       {/* Posts Feed */}
       <div className="space-y-6">
         {posts.map((post) => (
-          <article key={post.id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow">
+          <article key={post.id} className="bg-[var(--color-surface)] dark:bg-[var(--color-muted)] rounded-2xl shadow-sm border border-[var(--color-secondary)] dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow">
             {/* Post Header */}
             <div className="p-6 pb-4">
               <div className="flex items-center justify-between">
@@ -966,20 +966,20 @@ const SocialMediaApp: React.FC = () => {
                   />
                   <div>
                     <p 
-                      className="font-medium text-gray-900 dark:text-white cursor-pointer hover:underline"
+                      className="font-medium text-[var(--color-text)]  cursor-pointer hover:underline"
                       onClick={() => handleUserClick(post.user)}
                     >
                       {post.user.name}
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{post.timestamp}</p>
+                    <p className="text-sm text-[var(--color-muted)] dark:text-gray-400">{post.timestamp}</p>
                   </div>
                 </div>
-                <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                <button className="text-gray-400 hover:text-[var(--color-muted-hover)] dark:hover:text-[var(--color-muted-hover)] transition-colors">
                   <MoreHorizontal className="w-5 h-5" />
                 </button>
               </div>
               
-              <p className="mt-4 text-gray-900 dark:text-white">{post.content}</p>
+              <p className="mt-4  text-[var(--color-text)]">{post.content}</p>
             </div>
 
             {/* Post Image */}
@@ -1000,22 +1000,22 @@ const SocialMediaApp: React.FC = () => {
                   <button 
                     onClick={() => handleLike(post.id)}
                     className={`flex items-center space-x-2 transition-colors ${
-                      post.liked ? 'text-red-500' : 'text-gray-500 hover:text-red-500'
+                      post.liked ? 'text-red-500' : 'text-[var(--color-muted)] hover:text-red-500'
                     }`}
                   >
                     <Heart className={`w-5 h-5 ${post.liked ? 'fill-current' : ''}`} />
                     <span className="text-sm font-medium">{post.likes.toLocaleString()}</span>
                   </button>
-                  <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors">
+                  <button className="flex items-center space-x-2 text-[var(--color-muted)] hover:text-[var(--color-info)] transition-colors">
                     <MessageCircle className="w-5 h-5" />
                     <span className="text-sm font-medium">{post.comments}</span>
                   </button>
-                  <button className="flex items-center space-x-2 text-gray-500 hover:text-green-500 transition-colors">
+                  <button className="flex items-center space-x-2 text-[var(--color-muted)] hover:text-green-500 transition-colors">
                     <Share2 className="w-5 h-5" />
                     <span className="text-sm font-medium">{post.shares}</span>
                   </button>
                 </div>
-                <button className="text-gray-500 hover:text-purple-500 transition-colors">
+                <button className="text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-colors">
                   {/* <Bookmark className="w-5 h-5" /> */}
                    <BookmarkButton post={post} />
                 </button>

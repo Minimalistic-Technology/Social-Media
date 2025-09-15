@@ -138,12 +138,26 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('default')
 
+  // useEffect(() => {
+  //   const savedTheme = localStorage.getItem('app-theme') as Theme
+  //   if (savedTheme && themeConfigs.find(t => t.id === savedTheme)) {
+  //     setTheme(savedTheme)
+  //   }
+  // }, [])
+
   useEffect(() => {
-    const savedTheme = localStorage.getItem('app-theme') as Theme
-    if (savedTheme && themeConfigs.find(t => t.id === savedTheme)) {
-      setTheme(savedTheme)
-    }
-  }, [])
+  const savedTheme = localStorage.getItem('app-theme');
+  const isValidTheme = themeConfigs.some(t => t.id === savedTheme);
+
+  if (savedTheme && isValidTheme) {
+    setTheme(savedTheme as Theme);
+  } else {
+    // fallback to default
+    setTheme('default');
+    localStorage.setItem('app-theme', 'default');
+  }
+}, []);
+
 
   useEffect(() => {
     localStorage.setItem('app-theme', theme)
